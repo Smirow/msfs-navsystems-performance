@@ -127,7 +127,6 @@ aera-element {
       aera-element #MFD #PagesContainer[state=NearestIntersection] #NearestIntersection {
         display: block; }
       aera-element #MFD #PagesContainer #PFD #HorizonContainer {
-        transform: rotateX(0);
         position: absolute;
         width: 100%;
         height: 100%;
@@ -141,7 +140,8 @@ aera-element {
           top: 16.5%;
           width: auto;
           height: 24%;
-          border: none; }
+          border: none; 
+          z-index: 0; }
         aera-element #MFD #PagesContainer #PFD #HorizonContainer #SyntheticVision {
           top: -51vh;
           width: 160vh;

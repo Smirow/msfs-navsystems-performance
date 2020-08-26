@@ -789,7 +789,6 @@ as3x-element {
     width: 100%;
     height: 40%; }
     as3x-element #Content #PFD #HorizonContainer {
-      transform: rotateX(0);
       position: absolute;
       width: 100%;
       height: 100%;
@@ -803,7 +802,8 @@ as3x-element {
         top: calc(4.8vh + 4.6%);
         width: auto;
         height: 23vh;
-        border: none; }
+        border: none; 
+        z-index: 0; }
       as3x-element #Content #PFD #HorizonContainer #SyntheticVision {
         left: -42vh;
         top: calc(-52vh + 4.6%);

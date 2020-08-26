@@ -161,7 +161,6 @@ as3x-touch-element {
     border-right: 0.3vh solid white;
     z-index: 0; }
   as3x-touch-element #PFD #HorizonContainer {
-    transform: rotateX(0);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -175,7 +174,8 @@ as3x-touch-element {
       top: 16.5%;
       width: auto;
       height: 24%;
-      border: none; }
+      border: none; 
+      z-index: 0; }
     as3x-touch-element #PFD #HorizonContainer #SyntheticVision {
       left: -40vh;
       top: -51vh;

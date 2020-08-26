@@ -119,7 +119,6 @@ as1000-pfd-element {
     display: block;
     position: relative; }
     as1000-pfd-element #Mainframe #HorizonContainer {
-      transform: rotateX(0);
       position: absolute;
       width: 100%;
       height: 100%;
@@ -132,7 +131,8 @@ as1000-pfd-element {
         top: 8.5%;
         width: 47%;
         height: 41%;
-        border: none; }
+        border: none; 
+        z-index: 0; }
       as1000-pfd-element #Mainframe #HorizonContainer #SyntheticVision {
         left: -13.5%;
         top: -24.5%;

@@ -122,7 +122,6 @@ as3000-pfd-element {
     display: block;
     position: relative; }
     as3000-pfd-element #Mainframe #HorizonContainer {
-      transform: rotateX(0);
       position: absolute;
       width: 100%;
       height: 100%;
@@ -135,7 +134,8 @@ as3000-pfd-element {
         top: 8.5%;
         width: 30%;
         height: 42%;
-        border: none; }
+        border: none; 
+        z-index: 0; }
       as3000-pfd-element #Mainframe #HorizonContainer #SyntheticVision {
         left: 0%;
         top: -40.5%;
