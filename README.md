@@ -4,6 +4,9 @@ Aiming to fixe performance issues of the Garmins in MSFS 2020
 ## About
 The goal is to improve the HTML/CSS/JS rendering performance of the PFD/MFD Garmins. The project is not intended to add breaking features or to fix functional bugs. 
 
+## Not breaking features
+- Synthetic vision page and ability to toggle on/off on the G1000 PFD
+
 ## Installation
 Installation is really simple. You only have to download the main folder (with layout.json and manifest.json), we call it msfs-navsystems-performance but you can modify it.
 
