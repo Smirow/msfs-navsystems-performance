@@ -211,7 +211,7 @@ class AS3000_PFD_MainPage extends NavSystemPage {
         }
     }
     softkeySynTerrStatus() {
-        return this.gps.getElementOfType(PFD_Attitude).isbackgroundVisible()
+        return !this.gps.getElementOfType(PFD_Attitude).isbackgroundVisible()
     }
 }
 class AS3000_PFD_MainElement extends NavSystemElement {
