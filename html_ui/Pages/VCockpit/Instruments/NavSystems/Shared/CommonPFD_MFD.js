@@ -287,6 +287,9 @@ class PFD_Attitude extends NavSystemElement {
     }
     onEnter() {
     }
+    isbackgroundVisible() {
+        return this.svg.backgroundVisible;
+    }
     onUpdate(_deltaTime) {
         var xyz = Simplane.getOrientationAxis();
         if (xyz) {
@@ -301,6 +304,11 @@ class PFD_Attitude extends NavSystemElement {
     onExit() {
     }
     onEvent(_event) {
+        switch (_event) {
+            case "SoftKeys_PFD_SYNTERR":
+                this.svg.setAttribute("background", !this.svg.backgroundVisible);
+                break;
+        }
     }
 }
 class PFD_CDI extends NavSystemElement {

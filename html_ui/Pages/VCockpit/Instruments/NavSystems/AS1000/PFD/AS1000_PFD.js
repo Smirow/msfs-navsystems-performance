@@ -81,6 +81,7 @@ class AS1000_PFD_MainPage extends NavSystemPage {
         this.xpndrCodeMenu = new SoftKeysMenu();
         this.pfdMenu = new SoftKeysMenu();
         this.windMenu = new SoftKeysMenu();
+        this.synVisMenu = new SoftKeysMenu();
         this.hsiFrmtMenu = new SoftKeysMenu();
         this.syntheticVision = false;
         this.annunciations = new PFD_Annunciations();
@@ -171,7 +172,7 @@ class AS1000_PFD_MainPage extends NavSystemPage {
             this.alertSoftkey
         ];
         this.pfdMenu.elements = [
-            new SoftKeyElement(""),
+            new SoftKeyElement("SYN VIS", this.switchToMenu.bind(this, this.synVisMenu)),
             new SoftKeyElement("DFLTS"),
             new SoftKeyElement("WIND", this.switchToMenu.bind(this, this.windMenu)),
             new SoftKeyElement("DME", this.gps.computeEvent.bind(this.gps, "SoftKeys_PFD_DME")),
@@ -182,6 +183,20 @@ class AS1000_PFD_MainPage extends NavSystemPage {
             new SoftKeyElement("ALT UNIT"),
             new SoftKeyElement("STD BARO"),
             new SoftKeyElement("BACK", this.switchToMenu.bind(this, this.rootMenu)),
+            this.alertSoftkey
+        ];
+        this.synVisMenu.elements = [
+            new SoftKeyElement(""),
+            new SoftKeyElement("SYN TERR", this.gps.computeEvent.bind(this.gps, "SoftKeys_PFD_SYNTERR"), this.softkeySynTerrStatus.bind(this)),
+            new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement("BACK", this.switchToMenu.bind(this, this.pfdMenu)),
             this.alertSoftkey
         ];
         this.windMenu.elements = [
@@ -239,6 +254,9 @@ class AS1000_PFD_MainPage extends NavSystemPage {
     }
     toggleIsolines() {
         this.gps.getElementOfType(PFD_InnerMap).toggleIsolines();
+    }
+    softkeySynTerrStatus() {
+        return this.gps.getElementOfType(PFD_Attitude).isbackgroundVisible() ? "None" : "White"
     }
     getKeyState(_keyName) {
         switch (_keyName) {
