@@ -65,6 +65,7 @@ class AS3000_PFD_MainPage extends NavSystemPage {
         super("Main", "Mainframe", new AS3000_PFD_MainElement());
         this.rootMenu = new SoftKeysMenu();
         this.pfdMenu = new SoftKeysMenu();
+        this.OverlaysMenu = new SoftKeysMenu();
         this.otherPfdMenu = new SoftKeysMenu();
         this.windMenu = new SoftKeysMenu();
         this.annunciations = new PFD_Annunciations();
@@ -111,7 +112,7 @@ class AS3000_PFD_MainPage extends NavSystemPage {
             new AS3000_PFD_SoftKeyElement("")
         ];
         this.pfdMenu.elements = [
-            new AS3000_PFD_SoftKeyElement("Attitude Overlays"),
+            new AS3000_PFD_SoftKeyElement("Attitude Overlays", this.switchToMenu.bind(this, this.OverlaysMenu)),
             new AS3000_PFD_SoftKeyElement("PFD Mode", null, null, this.constElement.bind(this, "FULL")),
             new AS3000_PFD_SoftKeyElement(""),
             new AS3000_PFD_SoftKeyElement(""),
@@ -120,6 +121,20 @@ class AS3000_PFD_MainPage extends NavSystemPage {
             new AS3000_PFD_SoftKeyElement("Bearing 2", this.gps.computeEvent.bind(this.gps, "SoftKeys_PFD_BRG2"), null, this.bearing2Status.bind(this)),
             new AS3000_PFD_SoftKeyElement(""),
             new AS3000_PFD_SoftKeyElement("Other PFD Settings", this.switchToMenu.bind(this, this.otherPfdMenu)),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement("Back", this.switchToMenu.bind(this, this.rootMenu)),
+            new AS3000_PFD_SoftKeyElement("")
+        ];
+        this.OverlaysMenu.elements = [
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement("Synthetic Terrain", this.gps.computeEvent.bind(this.gps, "SoftKeys_PFD_SYNTERR"), this.softkeySynTerrStatus.bind(this)),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement(""),
             new AS3000_PFD_SoftKeyElement(""),
             new AS3000_PFD_SoftKeyElement("Back", this.switchToMenu.bind(this, this.rootMenu)),
             new AS3000_PFD_SoftKeyElement("")
@@ -194,6 +209,9 @@ class AS3000_PFD_MainPage extends NavSystemPage {
                 return "AUTO";
                 break;
         }
+    }
+    softkeySynTerrStatus() {
+        return this.gps.getElementOfType(PFD_Attitude).isbackgroundVisible()
     }
 }
 class AS3000_PFD_MainElement extends NavSystemElement {
