@@ -6,6 +6,7 @@ The goal is to improve the HTML/CSS/JS rendering performance of the PFD/MFD Garm
 
 ## Not breaking features
 - Synthetic vision page and ability to toggle on/off on the G1000 and G3000 PFD
+- BARO setting as hectopacals for the G1000
 
 ## Installation
 Installation is really simple. You only have to download the main folder (with layout.json and manifest.json), we call it msfs-navsystems-performance but you can modify it.
