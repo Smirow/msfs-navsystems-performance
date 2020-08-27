@@ -131,6 +131,9 @@ class PFD_Altimeter extends NavSystemElement {
     }
     onEnter() {
     }
+    getCurrentMode() {
+        return this.altimeterElement.baroMode;
+    }
     onUpdate(_deltaTime) {
         var altitude = SimVar.GetSimVarValue("INDICATED ALTITUDE:" + this.altimeterIndex, "feet");
         var selectedAltitude = SimVar.GetSimVarValue("AUTOPILOT ALTITUDE LOCK VAR", "feet");
@@ -273,6 +276,12 @@ class PFD_Altimeter extends NavSystemElement {
                 break;
             case "BARO_DEC":
                 SimVar.SetSimVarValue("K:KOHLSMAN_DEC", "number", this.altimeterIndex);
+                break;
+            case "SoftKeys_Baro_IN":
+                this.altimeterElement.setAttribute("baro-mode", "IN");
+                break;
+            case "SoftKeys_Baro_HPA":
+                this.altimeterElement.setAttribute("baro-mode", "HPA");
                 break;
         }
     }
