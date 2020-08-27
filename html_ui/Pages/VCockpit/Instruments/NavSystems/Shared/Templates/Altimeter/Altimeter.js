@@ -4,6 +4,8 @@ class Altimeter extends HTMLElement {
         this.currentCenterGrad = -10000;
         this.minimumAltitude = NaN;
         this.compactVs = false;
+        this.baroMode = "IN";
+        this.lastPressure = 29.92;
     }
     static get observedAttributes() {
         return [
@@ -17,7 +19,8 @@ class Altimeter extends HTMLElement {
             "reference-vspeed",
             "vertical-deviation-mode",
             "vertical-deviation-value",
-            "selected-altitude-alert"
+            "selected-altitude-alert",
+            "baro-mode"
         ];
     }
     connectedCallback() {
@@ -638,7 +641,19 @@ class Altimeter extends HTMLElement {
                 }
                 break;
             case "pressure":
-                this.baroText.textContent = parseFloat(newValue).toFixed(2) + "IN";
+                if (this.baroMode == "HPA") this.baroText.textContent = (parseFloat(newValue) * 33.8639).toFixed(0)  + "HPA";
+                else this.baroText.textContent = parseFloat(newValue).toFixed(2) + "IN";
+                this.lastPressure = newValue;
+                break;
+            case "baro-mode":
+                if (newValue == "HPA") {
+                    this.baroMode = "HPA";
+                    this.baroText.textContent = (parseFloat(this.lastPressure) * 33.8639).toFixed(0)  + "HPA";
+                }    
+                else {
+                    this.baroMode = "IN";
+                    this.baroText.textContent = parseFloat(this.lastPressure).toFixed(2) + "IN";
+                }
                 break;
             case "vspeed":
                 let vSpeed = parseFloat(newValue);

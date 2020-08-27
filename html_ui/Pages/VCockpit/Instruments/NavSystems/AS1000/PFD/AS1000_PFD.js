@@ -82,6 +82,7 @@ class AS1000_PFD_MainPage extends NavSystemPage {
         this.pfdMenu = new SoftKeysMenu();
         this.windMenu = new SoftKeysMenu();
         this.synVisMenu = new SoftKeysMenu();
+        this.altUnitMenu = new SoftKeysMenu();
         this.hsiFrmtMenu = new SoftKeysMenu();
         this.syntheticVision = false;
         this.annunciations = new PFD_Annunciations();
@@ -180,7 +181,7 @@ class AS1000_PFD_MainPage extends NavSystemPage {
             new SoftKeyElement("HSI FRMT", this.switchToMenu.bind(this, this.hsiFrmtMenu)),
             new SoftKeyElement("BRG2", this.gps.computeEvent.bind(this.gps, "SoftKeys_PFD_BRG2")),
             new SoftKeyElement(""),
-            new SoftKeyElement("ALT UNIT"),
+            new SoftKeyElement("ALT UNIT", this.switchToMenu.bind(this, this.altUnitMenu)),
             new SoftKeyElement("STD BARO"),
             new SoftKeyElement("BACK", this.switchToMenu.bind(this, this.rootMenu)),
             this.alertSoftkey
@@ -195,6 +196,20 @@ class AS1000_PFD_MainPage extends NavSystemPage {
             new SoftKeyElement(""),
             new SoftKeyElement(""),
             new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement("BACK", this.switchToMenu.bind(this, this.pfdMenu)),
+            this.alertSoftkey
+        ];
+        this.altUnitMenu.elements = [
+            new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement(""),
+            new SoftKeyElement("METERS"),
+            new SoftKeyElement(""),
+            new SoftKeyElement("IN", this.gps.computeEvent.bind(this.gps, "SoftKeys_Baro_IN"), this.softkeyBaroStatus.bind(this, "IN")),
+            new SoftKeyElement("HPA", this.gps.computeEvent.bind(this.gps, "SoftKeys_Baro_HPA"), this.softkeyBaroStatus.bind(this, "HPA")),
             new SoftKeyElement(""),
             new SoftKeyElement("BACK", this.switchToMenu.bind(this, this.pfdMenu)),
             this.alertSoftkey
@@ -257,6 +272,9 @@ class AS1000_PFD_MainPage extends NavSystemPage {
     }
     softkeySynTerrStatus() {
         return this.gps.getElementOfType(PFD_Attitude).isbackgroundVisible() ? "None" : "White"
+    }
+    softkeyBaroStatus(_state) {
+        return this.gps.getElementOfType(PFD_Altimeter).getCurrentMode() == _state ? "White" : "None";
     }
     getKeyState(_keyName) {
         switch (_keyName) {
