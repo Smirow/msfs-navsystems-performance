@@ -68,6 +68,7 @@ class AS3000_PFD_MainPage extends NavSystemPage {
         this.OverlaysMenu = new SoftKeysMenu();
         this.otherPfdMenu = new SoftKeysMenu();
         this.windMenu = new SoftKeysMenu();
+        this.altUnitMenu = new SoftKeysMenu();
         this.annunciations = new PFD_Annunciations();
         this.attitude = new PFD_Attitude();
         this.mapInstrument = new MapInstrumentElement();
@@ -136,13 +137,13 @@ class AS3000_PFD_MainPage extends NavSystemPage {
             new AS3000_PFD_SoftKeyElement(""),
             new AS3000_PFD_SoftKeyElement(""),
             new AS3000_PFD_SoftKeyElement(""),
-            new AS3000_PFD_SoftKeyElement("Back", this.switchToMenu.bind(this, this.rootMenu)),
+            new AS3000_PFD_SoftKeyElement("Back", this.switchToMenu.bind(this, this.pfdMenu)),
             new AS3000_PFD_SoftKeyElement("")
         ];
         this.otherPfdMenu.elements = [
             new AS3000_PFD_SoftKeyElement("Wind", this.switchToMenu.bind(this, this.windMenu)),
             new AS3000_PFD_SoftKeyElement("AOA", this.gps.computeEvent.bind(this.gps, "SoftKey_PFD_AoAMode"), null, this.aoaStatus.bind(this)),
-            new AS3000_PFD_SoftKeyElement("Altitude Units"),
+            new AS3000_PFD_SoftKeyElement("Altitude Units", this.switchToMenu.bind(this, this.altUnitMenu)),
             new AS3000_PFD_SoftKeyElement(""),
             new AS3000_PFD_SoftKeyElement(""),
             new AS3000_PFD_SoftKeyElement(""),
@@ -151,6 +152,20 @@ class AS3000_PFD_MainPage extends NavSystemPage {
             new AS3000_PFD_SoftKeyElement(""),
             new AS3000_PFD_SoftKeyElement("COM1 121.5", null, this.constElement.bind(this, false)),
             new AS3000_PFD_SoftKeyElement("Back", this.switchToMenu.bind(this, this.rootMenu)),
+            new AS3000_PFD_SoftKeyElement("")
+        ];
+        this.altUnitMenu.elements = [
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement("METERS"),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement("IN", this.gps.computeEvent.bind(this.gps, "SoftKeys_Baro_IN"), this.softkeyBaroStatus.bind(this, "IN")),
+            new AS3000_PFD_SoftKeyElement("HPA", this.gps.computeEvent.bind(this.gps, "SoftKeys_Baro_HPA"), this.softkeyBaroStatus.bind(this, "HPA")),
+            new AS3000_PFD_SoftKeyElement(""),
+            new AS3000_PFD_SoftKeyElement("BACK", this.switchToMenu.bind(this, this.otherPfdMenu)),
             new AS3000_PFD_SoftKeyElement("")
         ];
         this.windMenu.elements = [
@@ -212,6 +227,9 @@ class AS3000_PFD_MainPage extends NavSystemPage {
     }
     softkeySynTerrStatus() {
         return !this.gps.getElementOfType(PFD_Attitude).isbackgroundVisible()
+    }
+    softkeyBaroStatus(_comparison) {
+        return this.gps.getElementOfType(PFD_Altimeter).getCurrentMode() == _comparison;
     }
 }
 class AS3000_PFD_MainElement extends NavSystemElement {
