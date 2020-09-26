@@ -35,6 +35,32 @@ class AS530 extends BaseGPS {
         this.addEventLinkedPageGroup("FPL_Push", new NavSystemPageGroup("FPL", this, [new NavSystemPage("ActiveFPL", "FlightPlanEdit", new GPS_ActiveFPL())]));
         this.addEventLinkedPageGroup("PROC_Push", new NavSystemPageGroup("PROC", this, [new NavSystemPage("Procedures", "Procedures", new GPS_Procedures())]));
         this.addEventLinkedPageGroup("MSG_Push", new NavSystemPageGroup("MSG", this, [new NavSystemPage("MSG", "MSG", new GPS_Messages())]));
+        this.addIndependentElementContainer(new NavSystemElementContainer("VorInfos", "RadioPart", new AS530_VorInfos()));
+    }
+}
+class AS530_VorInfos extends NavSystemElement {
+    init(root) {
+        this.vor = this.gps.getChildById("vorValue");
+        this.rad = this.gps.getChildById("radValue");
+        this.dis = this.gps.getChildById("disValue");
+    }
+    onEnter() {
+    }
+    onExit() {
+    }
+    onEvent(_event) {
+    }
+    onUpdate(_deltaTime) {
+        let ident = SimVar.GetSimVarValue("NAV IDENT:1", "string");
+        Avionics.Utils.diffAndSet(this.vor, ident != "" ? ident : "___");
+        Avionics.Utils.diffAndSet(this.rad, (SimVar.GetSimVarValue("NAV HAS NAV:1", "bool") ? Math.round(SimVar.GetSimVarValue("NAV RELATIVE BEARING TO STATION:1", "degrees")).toFixed(0) : "___") + "°");
+        if (SimVar.GetSimVarValue("NAV HAS DME:1", "bool")) {
+            const distance = SimVar.GetSimVarValue("NAV DME:1", "Nautical Miles");
+            const distanceFixed = distance.toFixed(1);
+            Avionics.Utils.diffAndSet(this.dis, distanceFixed < 100.0 ? distanceFixed : Math.round(distance));
+        } else {
+            Avionics.Utils.diffAndSet(this.dis, "__._");
+        }
     }
 }
 registerInstrument("as530-element", AS530);

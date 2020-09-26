@@ -99,12 +99,19 @@ as530-element {
             as530-element #Electricity #TopDisplay #RadioPart #VorRad #VOR div, as530-element #Electricity #TopDisplay #RadioPart #VorRad #RAD div {
               width: 49%; }
         as530-element #Electricity #TopDisplay #RadioPart #VOR, as530-element #Electricity #TopDisplay #RadioPart #RAD, as530-element #Electricity #TopDisplay #RadioPart #DIS {
-          color: white; }
+          color: white;
+          font-size: 5vh;
+          height: 7.7vh; }
         as530-element #Electricity #TopDisplay #RadioPart #vorTitle, as530-element #Electricity #TopDisplay #RadioPart #radTitle, as530-element #Electricity #TopDisplay #RadioPart #disTitle {
           color: #6ecdee; }
         as530-element #Electricity #TopDisplay #RadioPart #DIS {
           border: calc(0.4273504274vh) solid #6ecdee;
-          display: flex; }
+          display: flex;
+          width: 100%; }
+          as530-element #Electricity #TopDisplay #RadioPart #DIS div {
+            width: 45%; }
+          as530-element #Electricity #TopDisplay #RadioPart #DIS .unit {
+            width: 9%; }
         as530-element #Electricity #TopDisplay #RadioPart #BotRadioPartTop, as530-element #Electricity #TopDisplay #RadioPart #BotRadioPartMid, as530-element #Electricity #TopDisplay #RadioPart #BotRadioPartBot {
           background-color: black;
           border: calc(0.4273504274vh) solid #6ecdee;
@@ -551,6 +558,8 @@ as530-element {
           as530-element #Electricity #TopDisplay #GpsPart #WaypointSelection .Value {
             font-size: calc(7.264957265vh);
             margin: calc(0.8547008547vh); }
+          as530-element #Electricity #TopDisplay #GpsPart #WaypointSelection #WPSPosNS, as530-element #Electricity #TopDisplay #GpsPart #WaypointSelection #WPSPosEW {
+            height: calc(7.264957265vh); }
           as530-element #Electricity #TopDisplay #GpsPart #WaypointSelection .Half {
             width: 48%; }
           as530-element #Electricity #TopDisplay #GpsPart #WaypointSelection #WPSInfos {
