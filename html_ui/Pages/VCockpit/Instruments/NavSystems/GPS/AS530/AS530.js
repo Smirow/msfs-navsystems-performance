@@ -54,7 +54,13 @@ class AS530_VorInfos extends NavSystemElement {
         let ident = SimVar.GetSimVarValue("NAV IDENT:1", "string");
         Avionics.Utils.diffAndSet(this.vor, ident != "" ? ident : "___");
         Avionics.Utils.diffAndSet(this.rad, (SimVar.GetSimVarValue("NAV HAS NAV:1", "bool") ? Math.round(SimVar.GetSimVarValue("NAV RELATIVE BEARING TO STATION:1", "degrees")).toFixed(0) : "___") + "°");
-        Avionics.Utils.diffAndSet(this.dis, (SimVar.GetSimVarValue("NAV HAS DME:1", "bool") ? Math.round(SimVar.GetSimVarValue("NAV DME:1", "Nautical Miles")).toFixed(1) : "__._"));
+        if (SimVar.GetSimVarValue("NAV HAS DME:1", "bool")) {
+            const distance = SimVar.GetSimVarValue("NAV DME:1", "Nautical Miles");
+            const distanceFixed = distance.toFixed(1);
+            Avionics.Utils.diffAndSet(this.dis, distanceFixed < 100.0 ? distanceFixed : Math.round(distance));
+        } else {
+            Avionics.Utils.diffAndSet(this.dis, "__._");
+        }
     }
 }
 registerInstrument("as530-element", AS530);
